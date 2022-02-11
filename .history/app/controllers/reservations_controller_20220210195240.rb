@@ -12,7 +12,8 @@ class ReservationsController < ApplicationController
   
   def create
     @reservation = Reservation.new(
-      reservation_params
+      params.require(:reservation)
+      .permit(:number_reservations, :check_in, :check_out, :room_id, :room_name)
       .merge(user_id: current_user.id)
       .merge(username: current_user.username)
       )
@@ -36,7 +37,8 @@ class ReservationsController < ApplicationController
   def update
     set_reservation
     if @reservation.update(
-      reservation_params
+      params.require(:reservation)
+      .permit(:number_reservations, :check_in, :check_out)
       )
       flash[:notice] = "予約を変更しました"
       redirect_to("/reservations")
@@ -56,9 +58,5 @@ class ReservationsController < ApplicationController
 
   def set_reservation
     @reservation = Reservation.find_by(id: params[:id])
-  end
-
-  def reservation_params
-    params.require(:reservation).permit(:number_reservations, :check_in, :check_out, :room_id, :room_name)
   end
 end

@@ -13,6 +13,7 @@ class ReservationsController < ApplicationController
   def create
     @reservation = Reservation.new(
       reservation_params
+      .merge(:room_id, :room_name)
       .merge(user_id: current_user.id)
       .merge(username: current_user.username)
       )
@@ -59,6 +60,6 @@ class ReservationsController < ApplicationController
   end
 
   def reservation_params
-    params.require(:reservation).permit(:number_reservations, :check_in, :check_out, :room_id, :room_name)
+    params.require(:reservation).permit(:number_reservations, :check_in, :check_out)
   end
 end

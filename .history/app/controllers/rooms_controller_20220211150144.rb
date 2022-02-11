@@ -31,7 +31,6 @@ class RoomsController < ApplicationController
   
   def update
     if @room.update(
-      room_params
       )
       flash[:notice] = "部屋情報を編集しました"
       redirect_to("/rooms")

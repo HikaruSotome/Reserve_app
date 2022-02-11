@@ -12,7 +12,8 @@ class RoomsController < ApplicationController
   
   def create
     @room = Room.new(
-      room_params
+      params.require(:room)
+      .permit(:room_name, :introduction, :fee, :address, :room_image)
       .merge(user_id: current_user.id)
       )
     if @room.save
@@ -31,7 +32,8 @@ class RoomsController < ApplicationController
   
   def update
     if @room.update(
-      room_params
+      params.require(:room)
+      .permit(:room_name, :introduction, :fee, :address, :room_image)
       )
       flash[:notice] = "部屋情報を編集しました"
       redirect_to("/rooms")
@@ -58,9 +60,5 @@ class RoomsController < ApplicationController
 
   def set_room
     @room = Room.find_by(id: params[:id])
-  end
-
-  def room_params
-    params.require(:room).permit(:room_name, :introduction, :fee, :address, :room_image)
   end
 end
