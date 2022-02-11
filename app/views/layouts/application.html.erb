@@ -37,13 +37,12 @@
               </li>
             <% end %>
           <% end %>
+          <li><%= link_to "ルーム一覧", rooms_path, class: "nav-content nav-link" %></li>
           <% if user_signed_in? %>
-            <li><%= link_to "ルーム一覧", rooms_path, class: "nav-content nav-link" %></li>
             <li><%= link_to "ルーム登録", new_room_path, class: "nav-content nav-link" %></li>
             <li><%= link_to "予約一覧", reservations_path, class: "nav-content nav-link" %></li>
             <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-content nav-link" %></li>
           <% else %>
-            <li><%= link_to "ルーム一覧", rooms_path, class: "nav-content nav-link" %></li>
             <li><%= link_to "ログイン", new_user_session_path, class: "nav-content nav-link" %></li>
             <li><%= link_to "新規登録", new_user_registration_path, class: "nav-content nav-link" %></li>
           <% end %>
